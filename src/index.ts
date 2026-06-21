@@ -1,4 +1,4 @@
-import { AccessoryPlugin, API, HAP, Logging, Service, CharacteristicEventTypes, CharacteristicGetCallback, CharacteristicSetCallback } from 'homebridge';
+import { AccessoryPlugin, API, HAP, Logging, Service, CharacteristicEventTypes, CharacteristicGetCallback, CharacteristicSetCallback, AccessoryConfig } from 'homebridge';
 
 import { HomebridgeLockStatus } from './enum';
 import axios, { AxiosInstance } from 'axios';
@@ -105,10 +105,10 @@ class LockAccessory implements AccessoryPlugin {
     private lockID: string;
     private targetState: HomebridgeLockStatus;
     private lockService: Service = new hap.Service.LockMechanism( this.name );
-    private batteryService: Service = new hap.Service.BatteryService( this.name );
+    private batteryService: Service = new hap.Service.Battery( this.name );
     private infoService: Service = new hap.Service.AccessoryInformation();
 
-    constructor( private log: Logging, private readonly config: IConfig ) {
+    constructor( private log: Logging, private readonly config: IConfig, api: API ) {
         if ( this.config['api-key'] )
             this._apiKey = this.config['api-key'];
         else if ( !this.config.username || !this.config.password )
