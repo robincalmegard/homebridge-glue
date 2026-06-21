@@ -10,7 +10,7 @@ let hap: HAP;
 
 export default function( homebridge: API ) {
     hap = homebridge.hap;
-    homebridge.registerAccessory( 'homebridge-glue', 'glue-lock', LockAccessory );
+    homebridge.registerAccessory( 'homebridge-glue', 'Glue', LockAccessory );
 }
 
 
